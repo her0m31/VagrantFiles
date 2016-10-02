@@ -67,7 +67,27 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     sudo yum update -y
-    sudo yum install -y httpd
+    sudo yum install -y http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
+    sudo yum install -y epel-release
+    sudo yum install -y --enablerepo=remi,remi-php70 \
+      httpd \
+      git \
+      vim \
+      php \
+      php-devel \
+      php-mbstring \
+      php-pdo \
+      php-gd \
+      php-xml \
+      php-mysql \
+      php-mcrypt \
+      php-tokenizer \
+      mysql-community-server;
     sudo cp /home/vagrant/share/virtualhost.conf /etc/httpd/conf.d/
+    curl -sS https://getcomposer.org/installer | php
+    sudo cp composer.phar /usr/local/bin/composer
+    php ./composer.phar global require "laravel/installer"
+    rm -rf composer.phar
+    echo 'export PATH=~/.composer/vendor/laravel/installer:$PATH' >> ~/.bashrc
   SHELL
 end
