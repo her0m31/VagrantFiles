@@ -67,9 +67,9 @@ Vagrant.configure(2) do |config|
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", inline: <<-SHELL
     sudo yum update -y
-    sudo yum install -y http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
     sudo yum install -y epel-release
-    sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+    sudo yum install -y http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+    sudo yum install -y http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
     sudo yum install -y --enablerepo=remi,remi-php70 \
       httpd \
       git \
